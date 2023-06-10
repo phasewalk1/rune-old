@@ -1,10 +1,7 @@
 use cfg_if::cfg_if;
 
 cfg_if! { if #[cfg(feature = "ssr")] {
-    use sqlx::postgres::PgPool;
-    use std::env::var as evar;
-
-    fn instantiate_logger_with_level(lvl: log::Level) -> () {
+    fn logger_with(lvl: log::Level) -> () {
         simple_logger::init_with_level(lvl).expect("couldn't initialize logger");
     }
 
@@ -21,17 +18,17 @@ cfg_if! { if #[cfg(feature = "ssr")] {
 
     async fn app() -> () {
         use rune::views::app::App;
-        use rune::backend::{ router as rune_router, state as rune_state };
+        use rune::backend;
         use axum::{ extract::Extension, routing::post, Router as AxRouter };
         use leptos::*;
-        use leptos_axum::generate_route_list as map_to_axum;
+        use leptos_axum::generate_route_list as routemap;
 
-        instantiate_logger_with_level(log::Level::Debug);
-        let ( pool, state ) = rune_state::instantiate_state().await;
+        logger_with(log::Level::Debug);
+        let ( pool, state ) = backend::state::instantiate_state().await;
         let ( conf, opts, addr ) = load_configs!();
-        let routes = map_to_axum(|cx| view! { cx, <App/> }).await;
+        let routes = routemap(|cx| view! { cx, <App/> }).await;
 
-        let app = rune_router::build_router(routes, state, opts).await;
+        let app = backend::router::build_router(routes, state, opts).await;
         log!("listening on http://{}", &addr);
         axum::Server::bind(&addr)
             .serve(app.into_make_service())
