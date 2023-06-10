@@ -1,0 +1,76 @@
+warning: unused manifest key: dependencies.sb-rust-proto.name
+    Finished dev [unoptimized + debuginfo] target(s) in 0.08s
+[38;5;77m       Cargo[0m finished [38;5;241mcargo build --package=start-axum --lib --target-dir=target/front --target=wasm32-unknown-unknown --no-default-features --features=hydrate[0m
+warning: unused manifest key: dependencies.sb-rust-proto.name
+   Compiling start-axum v0.1.0 (/home/kat/Desktop/rune)
+error[E0433]: failed to resolve: could not find `serde` in the list of imported crates
+ --> src/backend/crud.rs:9:5
+  |
+9 |     #[server(SendMessage, "/api")]
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ could not find `serde` in the list of imported crates
+  |
+  = note: this error originates in the attribute macro `server` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unused import: `sqlx::postgres::PgPool`
+ --> src/backend/crud.rs:5:20
+  |
+5 |     pub(crate) use sqlx::postgres::PgPool;
+  |                    ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+error[E0277]: the trait bound `for<'de> SendMessage: serde::de::Deserialize<'de>` is not satisfied
+   --> src/backend/crud.rs:9:14
+    |
+9   |     #[server(SendMessage, "/api")]
+    |              ^^^^^^^^^^^ the trait `for<'de> serde::de::Deserialize<'de>` is not implemented for `SendMessage`
+    |
+    = help: the following other types implement trait `serde::de::Deserialize<'de>`:
+              &'a JsonRawValue
+              &'a [u8]
+              &'a std::path::Path
+              &'a str
+              ()
+              (T0, T1)
+              (T0, T1, T2)
+              (T0, T1, T2, T3)
+            and 197 others
+    = note: required for `SendMessage` to implement `serde::de::DeserializeOwned`
+note: required by a bound in `leptos::server_fn::ServerFn`
+   --> /home/kat/.cargo/registry/src/index.crates.io-6f17d22bba15001f/server_fn-0.3.0/src/lib.rs:272:23
+    |
+270 | pub trait ServerFn<T: 'static>
+    |           -------- required by a bound in this trait
+271 | where
+272 |     Self: Serialize + DeserializeOwned + Sized + 'static,
+    |                       ^^^^^^^^^^^^^^^^ required by this bound in `ServerFn`
+
+error[E0277]: the trait bound `SendMessage: serde::ser::Serialize` is not satisfied
+   --> src/backend/crud.rs:9:14
+    |
+9   |     #[server(SendMessage, "/api")]
+    |              ^^^^^^^^^^^ the trait `serde::ser::Serialize` is not implemented for `SendMessage`
+    |
+    = help: the following other types implement trait `serde::ser::Serialize`:
+              &'a T
+              &'a mut T
+              ()
+              (T0, T1)
+              (T0, T1, T2)
+              (T0, T1, T2, T3)
+              (T0, T1, T2, T3, T4)
+              (T0, T1, T2, T3, T4, T5)
+            and 188 others
+note: required by a bound in `leptos::server_fn::ServerFn`
+   --> /home/kat/.cargo/registry/src/index.crates.io-6f17d22bba15001f/server_fn-0.3.0/src/lib.rs:272:11
+    |
+270 | pub trait ServerFn<T: 'static>
+    |           -------- required by a bound in this trait
+271 | where
+272 |     Self: Serialize + DeserializeOwned + Sized + 'static,
+    |           ^^^^^^^^^ required by this bound in `ServerFn`
+
+Some errors have detailed explanations: E0277, E0433.
+For more information about an error, try `rustc --explain E0277`.
+warning: `start-axum` (lib) generated 1 warning
+error: could not compile `start-axum` (lib) due to 3 previous errors; 1 warning emitted
