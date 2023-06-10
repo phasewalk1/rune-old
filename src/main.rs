@@ -15,6 +15,7 @@ cfg_if! { if #[cfg(feature = "ssr")] {
         }
     };}
 
+    static POOL_DEPTH: usize = 100;
 
     async fn app() -> () {
         use rune::views::app::App;
@@ -24,7 +25,7 @@ cfg_if! { if #[cfg(feature = "ssr")] {
         use leptos_axum::generate_route_list as routemap;
 
         logger_with(log::Level::Debug);
-        let ( pool, state ) = backend::state::instantiate_state().await;
+        let ( pool, state ) = backend::state::stateful_pool(POOL_DEPTH).await;
         let ( conf, opts, addr ) = load_configs!();
         let routes = routemap(|cx| view! { cx, <App/> }).await;
 
