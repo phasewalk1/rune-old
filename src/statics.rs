@@ -12,10 +12,10 @@ cfg_if! { if #[cfg(feature = "ssr")] {
     use tower_http::services::ServeDir;
     use std::sync::Arc;
     use leptos::*;
-    use crate::error_template::ErrorTemplate;
-    use crate::error_template::AppError;
+    use crate::error::ErrorTemplate;
+    use crate::error::AppError;
 
-    pub async fn file_and_error_handler(uri: Uri, Extension(options): Extension<Arc<LeptosOptions>>, req: Request<Body>) -> AxumResponse {
+    pub async fn handle_static(uri: Uri, Extension(options): Extension<Arc<LeptosOptions>>, req: Request<Body>) -> AxumResponse {
         let options = &*options;
         let root = options.site_root.clone();
         let res = get_static_file(uri.clone(), &root).await.unwrap();

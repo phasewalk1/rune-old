@@ -1,0 +1,7 @@
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    sender VARCHAR(255) NOT NULL,
+    recipient VARCHAR(255) NOT NULL,
+    body TEXT NOT NULL,
+    sent_at TIMESTAMP NOT NULL DEFAULT NOW()
+);

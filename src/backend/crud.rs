@@ -1,16 +1,16 @@
 use cfg_if::cfg_if;
 
 cfg_if! { if #[cfg(feature = "ssr")] {
-    use leptos::*;
-    pub(crate) use sqlx::postgres::PgPool;
-
+    use axum::{
+        extract::{Extension, State},
+        http::Request,
+    };
     use sb_proto as pb;
+    use std::sync::Arc;
+    use super::state::AppState;
 
-    #[server(SendMessage, "/api")]
-    pub(crate) async fn send_message(
-        cx: Scope,
-        msg: pb::MsgInTransit,
-    ) -> Result<(), ServerFnError> {
-        return Ok(());
+    pub(crate) async fn put_message(State(pool): State<Arc<AppState>>, req: Request<pb::MsgInTransit>) {
+        
     }
 }}
+
