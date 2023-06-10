@@ -1,16 +1,11 @@
-use cfg_if::cfg_if;
+use axum::{
+    extract::{Extension, State},
+    http::Request,
+};
+use sb_proto as pb;
+use std::sync::Arc;
+use super::state::AppState;
 
-cfg_if! { if #[cfg(feature = "ssr")] {
-    use axum::{
-        extract::{Extension, State},
-        http::Request,
-    };
-    use sb_proto as pb;
-    use std::sync::Arc;
-    use super::state::AppState;
-
-    pub(crate) async fn put_message(State(pool): State<Arc<AppState>>, req: Request<pb::MsgInTransit>) {
-        
-    }
-}}
-
+pub(crate) async fn put_message(State(pool): State<Arc<AppState>>, req: Request<pb::MsgInTransit>) {
+    
+}
