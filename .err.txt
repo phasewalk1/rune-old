@@ -1,0 +1,90 @@
+warning: unused manifest key: dependencies.sb-rust-proto.name
+warning: unused manifest key: dependencies.serde.featres
+    Finished dev [unoptimized + debuginfo] target(s) in 0.08s
+[38;5;77m       Cargo[0m finished [38;5;241mcargo build --package=rune --lib --target-dir=target/front --target=wasm32-unknown-unknown --no-default-features --features=hydrate[0m
+warning: unused manifest key: dependencies.sb-rust-proto.name
+warning: unused manifest key: dependencies.serde.featres
+   Compiling rune v0.1.0 (/home/kat/Desktop/rune)
+error[E0432]: unresolved import `leptos::post`
+ --> src/backend/router.rs:9:43
+  |
+9 | use leptos::{ log, provide_context, view, post };
+  |                                           ^^^^ no `post` in the root
+
+warning: unused imports: `Extension`, `State`, `http::Request`
+ --> src/backend/crud.rs:2:15
+  |
+2 |     extract::{Extension, State},
+  |               ^^^^^^^^^  ^^^^^
+3 |     http::Request,
+  |     ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::sync::Arc`
+ --> src/backend/crud.rs:6:5
+  |
+6 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `super::state::AppState`
+ --> src/backend/crud.rs:7:5
+  |
+7 | use super::state::AppState;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Path`, `RawQuery`, `header::HeaderMap`
+ --> src/backend/router.rs:2:33
+  |
+2 |     extract::{Extension, State, Path, RawQuery},
+  |                                 ^^^^  ^^^^^^^^
+3 |     http::{Request, header::HeaderMap},
+  |                     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `log`
+ --> src/backend/router.rs:9:15
+  |
+9 | use leptos::{ log, provide_context, view, post };
+  |               ^^^
+
+warning: unused imports: `generate_route_list`, `handle_server_fns_with_context`
+  --> src/backend/router.rs:10:19
+   |
+10 | use leptos_axum::{generate_route_list, LeptosRoutes, handle_server_fns_with_context };
+   |                   ^^^^^^^^^^^^^^^^^^^                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `sqlx::postgres::PgPool`
+  --> src/backend/router.rs:12:5
+   |
+12 | use sqlx::postgres::PgPool;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `sb_proto as pb`
+  --> src/backend/router.rs:13:5
+   |
+13 | use sb_proto as pb;
+   |     ^^^^^^^^^^^^^^
+
+error[E0277]: the trait bound `MethodRouter<AppState>: Handler<_, ()>` is not satisfied
+    --> src/backend/router.rs:32:45
+     |
+32   |         .leptos_routes_with_handler(routes, get(leptos_gate))
+     |          --------------------------         ^^^^^^^^^^^^^^^^ the trait `Handler<_, ()>` is not implemented for `MethodRouter<AppState>`
+     |          |
+     |          required by a bound introduced by this call
+     |
+     = note: Consider using `#[axum::debug_handler]` to improve the error message
+     = help: the trait `Handler<(), S, B>` is implemented for `MethodRouter<S, B>`
+note: required by a bound in `leptos_routes_with_handler`
+    --> /home/kat/.cargo/registry/src/index.crates.io-6f17d22bba15001f/leptos_axum-0.3.0/src/lib.rs:1157:12
+     |
+1151 |     fn leptos_routes_with_handler<H, T>(
+     |        -------------------------- required by a bound in this associated function
+...
+1157 |         H: axum::handler::Handler<T, (), axum::body::Body>,
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `LeptosRoutes::leptos_routes_with_handler`
+
+Some errors have detailed explanations: E0277, E0432.
+For more information about an error, try `rustc --explain E0277`.
+warning: `rune` (lib) generated 8 warnings
+error: could not compile `rune` (lib) due to 2 previous errors; 8 warnings emitted

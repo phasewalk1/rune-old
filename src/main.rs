@@ -25,8 +25,8 @@ cfg_if! { if #[cfg(feature = "ssr")] {
         use leptos_axum::generate_route_list as routemap;
 
         logger_with(log::Level::Debug);
-        let ( pool, state ) = backend::state::stateful_pool(POOL_DEPTH).await;
         let ( conf, opts, addr ) = load_configs!();
+        let ( pool, state ) = backend::state::stateful_pool(opts.clone(), POOL_DEPTH).await;
         let routes = routemap(|cx| view! { cx, <App/> }).await;
 
         let app = backend::router::build_router(routes, state, opts).await;

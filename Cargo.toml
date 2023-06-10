@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-axum = { version = "0.6.4", optional = true }
+axum = { version = "0.6.4", optional = true, features = ["macros"] }
 console_error_panic_hook = "0.1"
 console_log = "1"
 cfg-if = "1"
@@ -28,7 +28,7 @@ http = "0.2.8"
 
 [dependencies.sqlx]
 version = "0.6.3"
-features = ["postgres", "runtime-tokio-native-tls"]
+features = ["postgres", "time", "runtime-tokio-native-tls"]
 optional = true
 
 [dependencies.sb-rust-proto]

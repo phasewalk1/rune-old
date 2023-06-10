@@ -1,3 +1,3 @@
 INSERT INTO messages ( sender, recipient, body, sent_at )
-VALUES ( :sender, :recipient, :body, NOW() )
+VALUES ( $1, $2, $3, NOW() )
 RETURNING id, sender, recipient, body, sent_at;
